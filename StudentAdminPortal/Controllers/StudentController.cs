@@ -5,7 +5,7 @@ using StudentAdminPortal.Repository;
 
 namespace StudentAdminPortal.Controllers
 {
-    [Route("api/[controller]")]
+
     [ApiController]
     public class StudentController : ControllerBase
     {
@@ -19,7 +19,8 @@ namespace StudentAdminPortal.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("Get-All-students")]
+        [HttpGet]
+        [Route("GetAllStudent")]
         public async Task<IActionResult> GetAllStudent()
         {
             var students = await _student.GetStudents();
@@ -51,7 +52,19 @@ namespace StudentAdminPortal.Controllers
             //        },
             //    });
         }
+        [HttpGet]
+        [Route("[controller]/{StudentId:guid}")]
+        public async Task<IActionResult> GetStudent(Guid StudentId)
+        {
+            var student = await _student.GetStudentById(StudentId);
 
+            if (student == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(_mapper.Map<Student>(student));
+        }
     }
 }
 

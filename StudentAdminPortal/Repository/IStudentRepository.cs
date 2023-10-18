@@ -5,5 +5,6 @@ namespace StudentAdminPortal.Repository
     public interface IStudentRepository
     {
         Task<List<Student>> GetStudents();
+        Task<Student> GetStudentById(Guid studentId);
     }
 }

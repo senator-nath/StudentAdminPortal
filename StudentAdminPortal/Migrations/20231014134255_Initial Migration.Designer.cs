@@ -12,8 +12,8 @@ using StudentAdminPortal.Data;
 namespace StudentAdminPortal.Migrations
 {
     [DbContext(typeof(StudentAdminDbContext))]
-    [Migration("20231010104746_Initial migration")]
-    partial class Initialmigration
+    [Migration("20231014134255_Initial Migration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
