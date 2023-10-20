@@ -8,5 +8,6 @@ namespace StudentAdminPortal.Repository.IRepository
         Task<Student> GetStudentById(Guid studentId);
         Task<bool> StudentExist(Guid studentId);
         Task<Student> UpdateStudent(Guid studentId, Student request);
+        Task<Student> DeleteStudent(Guid studentId);
     }
 }

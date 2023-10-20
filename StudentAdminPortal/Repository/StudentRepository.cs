@@ -13,6 +13,18 @@ namespace StudentAdminPortal.Repository
             _context = context;
         }
 
+        public async Task<Student> DeleteStudent(Guid studentId)
+        {
+            var student = await GetStudentById(studentId);
+            if (student != null)
+            {
+                _context.Student.Remove(student);
+                await _context.SaveChangesAsync();
+
+            }
+            return null;
+        }
+
         public async Task<Student> GetStudentById(Guid studentId)
         {
             return await _context.Student.Include(nameof(Gender)).Include(nameof(Address)).FirstOrDefaultAsync(x => x.Id == studentId);
