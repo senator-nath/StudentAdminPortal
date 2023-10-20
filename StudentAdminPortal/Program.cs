@@ -2,6 +2,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using StudentAdminPortal.Data;
 using StudentAdminPortal.Repository;
+using StudentAdminPortal.Repository.IRepository;
 using StudentAdminPortal.StudentMapper;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +14,7 @@ var Configuration = builder.Configuration;
 builder.Services.AddCors();
 builder.Services.AddDbContext<StudentAdminDbContext>(Options => Options.UseSqlServer(Configuration.GetConnectionString("defaultConnection")));
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
-
+builder.Services.AddScoped<IGenderRepository, GenderRepository>();
 builder.Services.AddAutoMapper(typeof(StudentMapping));
 
 builder.Services.AddControllers();

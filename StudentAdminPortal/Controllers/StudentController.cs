@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using StudentAdminPortal.Model;
-using StudentAdminPortal.Repository;
+using StudentAdminPortal.Model.ModelDtos;
+using StudentAdminPortal.Repository.IRepository;
 
 namespace StudentAdminPortal.Controllers
 {
@@ -54,7 +55,7 @@ namespace StudentAdminPortal.Controllers
         }
         [HttpGet]
         [Route("[controller]/{StudentId:guid}")]
-        public async Task<IActionResult> GetStudent(Guid StudentId)
+        public async Task<IActionResult> GetStudent([FromRoute] Guid StudentId)
         {
             var student = await _student.GetStudentById(StudentId);
 
@@ -64,6 +65,21 @@ namespace StudentAdminPortal.Controllers
             }
 
             return Ok(_mapper.Map<Student>(student));
+        }
+        [HttpPut]
+        [Route("[controller]/{StudentId:guid}")]
+        public async Task<IActionResult> UpdateStudent([FromRoute] Guid StudentId, [FromBody] UpdateStudentDto request)
+        {
+            if (await _student.StudentExist(StudentId))
+            {
+                var updateStudent = await _student.UpdateStudent(StudentId, _mapper.Map<Model.Student>(request));
+                if (updateStudent != null)
+                {
+                    return Ok(_mapper.Map<Student>(updateStudent));
+                }
+            }
+            return NotFound();
+
         }
     }
 }

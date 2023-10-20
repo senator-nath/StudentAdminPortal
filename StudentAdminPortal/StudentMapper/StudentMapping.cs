@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using StudentAdminPortal.Model;
 using StudentAdminPortal.Model.ModelDtos;
+using StudentAdminPortal.StudentMapper.AfterMap;
 
 namespace StudentAdminPortal.StudentMapper
 {
@@ -11,6 +12,8 @@ namespace StudentAdminPortal.StudentMapper
             CreateMap<Student, StudentDto>().ReverseMap();
             CreateMap<Gender, GenderDto>().ReverseMap();
             CreateMap<Address, AddressDto>().ReverseMap();
+            CreateMap<UpdateStudentDto, Model.Student>()
+              .AfterMap<UpdateStudentRequestAfterMap>();
         }
     }
 }
