@@ -14,6 +14,8 @@ namespace StudentAdminPortal.StudentMapper
             CreateMap<Address, AddressDto>().ReverseMap();
             CreateMap<UpdateStudentDto, Model.Student>()
               .AfterMap<UpdateStudentRequestAfterMap>();
+            CreateMap<AddStudentDto, Model.Student>()
+             .AfterMap<AddStudentRequestAfterMap>();
         }
     }
 }
