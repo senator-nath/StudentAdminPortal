@@ -7,10 +7,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="IRepository\**" />
-	  <Content Remove="IRepository\**" />
-	  <EmbeddedResource Remove="IRepository\**" />
-	  <None Remove="IRepository\**" />
+		<Compile Remove="IRepository\**" />
+		<Content Remove="IRepository\**" />
+		<EmbeddedResource Remove="IRepository\**" />
+		<None Remove="IRepository\**" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -27,6 +27,10 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Resources\Image\" />
 	</ItemGroup>
 
 </Project>

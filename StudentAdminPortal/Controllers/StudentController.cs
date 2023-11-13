@@ -12,12 +12,14 @@ namespace StudentAdminPortal.Controllers
     {
         private readonly IStudentRepository _student;
         private readonly IMapper _mapper;
+        private readonly IImageRepository _image;
 
 
-        public StudentController(IStudentRepository student, IMapper mapper)
+        public StudentController(IStudentRepository student, IMapper mapper, IImageRepository image)
         {
             _student = student;
             _mapper = mapper;
+            _image = image;
         }
 
         [HttpGet]
@@ -101,6 +103,17 @@ namespace StudentAdminPortal.Controllers
                 _mapper.Map<Student>(student)
                 );
         }
+        [HttpPost]
+        [Route("[controller]/{StudentId:guid}/upload-image")]
+        public async Task<IActionResult> UploadImage([FromRoute] Guid StudentId, IFormFile profileImage)
+        {
+            if (await _student.StudentExist(StudentId))
+            {
+                var fileName = Guid.NewGuid() + Path.GetExtension(profileImage.FileName);
+                var fileImagePath = await _image.Upload(profileImage, fileName);
+                await _student.UpdateProfileImage(StudentId, fileImagePath);
+            }
+            return NotFound();
+        }
     }
 }
-

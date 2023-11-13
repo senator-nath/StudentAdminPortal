@@ -47,6 +47,18 @@ namespace StudentAdminPortal.Repository
             return await _context.Student.AnyAsync(Student => Student.Id == studentId);
         }
 
+        public async Task<bool> UpdateProfileImage(Guid studentId, string profileImageUrl)
+        {
+            var student = await GetStudentById(studentId);
+            if (student != null)
+            {
+                student.ProfileImageUrl = profileImageUrl;
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
         public async Task<Student> UpdateStudent(Guid studentId, Student request)
         {
             var existingStudent = await GetStudentById(studentId);
