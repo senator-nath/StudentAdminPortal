@@ -1,4 +1,5 @@
 using AutoMapper;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using StudentAdminPortal.Data;
 using StudentAdminPortal.Repository;
@@ -19,6 +20,7 @@ builder.Services.AddScoped<IImageRepository, ImageRepository>();
 builder.Services.AddAutoMapper(typeof(StudentMapping));
 
 builder.Services.AddControllers();
+builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Program>());
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

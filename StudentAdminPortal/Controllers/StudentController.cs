@@ -107,11 +107,27 @@ namespace StudentAdminPortal.Controllers
         [Route("[controller]/{StudentId:guid}/upload-image")]
         public async Task<IActionResult> UploadImage([FromRoute] Guid StudentId, IFormFile profileImage)
         {
-            if (await _student.StudentExist(StudentId))
+            var validExtension = new List<string>
             {
-                var fileName = Guid.NewGuid() + Path.GetExtension(profileImage.FileName);
-                var fileImagePath = await _image.Upload(profileImage, fileName);
-                await _student.UpdateProfileImage(StudentId, fileImagePath);
+                ".jpeg",".jpg",".png",".gif"
+            };
+
+
+
+            if (profileImage != null && profileImage.Length > 0)
+            {
+                var extension = Path.GetExtension(profileImage.FileName);
+                if (validExtension.Contains(extension))
+                {
+                    if (await _student.StudentExist(StudentId))
+                    {
+                        var fileName = Guid.NewGuid() + Path.GetExtension(profileImage.FileName);
+                        var fileImagePath = await _image.Upload(profileImage, fileName);
+                        await _student.UpdateProfileImage(StudentId, fileImagePath);
+                    }
+                }
+
+                return BadRequest("this is not a correct image format");
             }
             return NotFound();
         }
